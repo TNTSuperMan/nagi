@@ -22,6 +22,13 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, "./frontend/dist")
         },
+        proxy: [
+            {
+                context: ["/api"],
+                target: "http://localhost:5103",
+                secure: false
+            }
+        ],
         port: 3000,
         hot: true,
         open: true
