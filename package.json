@@ -15,7 +15,8 @@
   "type": "commonjs",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack -c webpack.prod.js",
+    "serve": "webpack serve -c webpack.frontend.js"
   },
   "dependencies": {
     "express": "^5.1.0",
