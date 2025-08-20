@@ -1,0 +1,20 @@
+{
+  "name": "nagi",
+  "version": "0.0.0",
+  "description": "nagi - 凪のように静まった、ゆっくり、ゆったりなSNSのプログラム。",
+  "homepage": "https://github.com/TNTSuperMan/nagi#readme",
+  "bugs": {
+    "url": "https://github.com/TNTSuperMan/nagi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TNTSuperMan/nagi.git"
+  },
+  "license": "MIT",
+  "author": "TNTSuperMan",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
