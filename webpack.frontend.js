@@ -12,7 +12,7 @@ views.forEach(view => {
 module.exports = {
     name: "frontend",
     target: "web",
-    mode: "production",
+    mode: process.env.NODE_ENV === "production" ? "production" : "development",
     entry: entry,
     output: {
         path: __dirname + "/frontend/dist",
