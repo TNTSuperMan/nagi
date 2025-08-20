@@ -1,5 +1,6 @@
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const fs = require("fs");
+const path = require("path");
 
 const views = fs.readdirSync("./frontend/views");
 
@@ -17,6 +18,14 @@ module.exports = [
         output: {
             path: __dirname + "/frontend/dist",
             filename: "[name].js"
+        },
+        devServer: {
+            static: {
+                directory: path.resolve(__dirname, "./frontend/dist")
+            },
+            port: 3000,
+            hot: true,
+            open: true
         },
         module: {
             rules: [
