@@ -16,7 +16,9 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "webpack -c webpack.prod.js",
-    "serve": "webpack serve -c webpack.frontend.js"
+    "serve": "npm-run-all --parallel serve:frontend serve:backend",
+    "serve:frontend": "webpack serve -c webpack.frontend.js",
+    "serve:backend": "node backend"
   },
   "dependencies": {
     "express": "^5.1.0",
@@ -29,6 +31,7 @@
     "@babel/preset-react": "^7.27.1",
     "babel-loader": "^10.0.0",
     "html-webpack-plugin": "^5.6.4",
+    "npm-run-all": "^4.1.5",
     "typescript": "^5.9.2",
     "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1",
