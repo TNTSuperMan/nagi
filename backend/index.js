@@ -1,8 +1,16 @@
 const express = require("express");
+const session = require("express-session");
 const path = require("path");
 const router = require("./app.js");
 
 const app = express();
+
+app.use(session({
+    secret: process.env.KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
+}))
 
 app.use("/api", router);
 
