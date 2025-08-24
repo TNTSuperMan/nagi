@@ -5,6 +5,7 @@ const router = require("./routes/index.js");
 
 const app = express();
 
+app.use(express.json())
 app.use(session({
     secret: process.env.KEY,
     resave: false,
