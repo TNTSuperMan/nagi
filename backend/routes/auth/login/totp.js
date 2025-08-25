@@ -2,8 +2,8 @@ const express = require("express");
 const speakeasy = require("speakeasy");
 const pg = require("pg");
 const z = require("zod");
-const logger = require("../../logger.js");
-const consts = require("../../consts");
+const logger = require("../../../logger.js");
+const consts = require("../../../consts");
 
 const limit = require("./limit.js");
 

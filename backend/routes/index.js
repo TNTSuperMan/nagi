@@ -1,11 +1,9 @@
 const express = require("express");
 const app = express.Router();
 
-const login = require("./login/index.js");
-const session = require("./session.js");
+const auth = require("./auth");
 
-app.use("/login", login);
-app.use("/session", session);
+app.use("/auth", auth);
 
 app.get("/hello", (req, res) => {
   res.send("Hello!");

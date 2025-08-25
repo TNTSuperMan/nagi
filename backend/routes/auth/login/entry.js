@@ -2,8 +2,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const pg = require("pg");
 const z = require("zod");
-const logger = require("../../logger.js");
-const consts = require("../../consts.js");
+const logger = require("../../../logger.js");
+const consts = require("../../../consts.js");
 
 const limit = require("./limit.js");
 
