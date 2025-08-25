@@ -38,7 +38,7 @@ app.post("/", limit, async (req, res, next) => {
         auths.push("totp");
       }
       const webauthn_result = await reader_client.query("SELECT COUNT(*) FROM webauthn_credentials WHERE user_handle = $1", [result.rows[0].id]);
-      if(webauthn_result.rows[0].count){
+      if(parseInt(webauthn_result.rows[0].count)){
         auths.push("webauthn");
       }
       if(auths.length){
