@@ -8,7 +8,7 @@ CREATE TABLE users (
     joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     icon BYTEA,
 
-    password_hash TEXT,
+    password_hash TEXT NOT NULL,
     totp_secret TEXT
 );
 
