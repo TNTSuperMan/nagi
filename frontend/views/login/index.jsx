@@ -1,3 +1,5 @@
+require("./style.css");
+
 const axios = require("axios");
 const React = require("react");
 const ReactDOM = require("react-dom/client");
@@ -35,14 +37,18 @@ function App() {
     {err && <div className="error">{err}</div>}
     {step === "login" && <>
       <form onSubmit={handleLogin}>
-        <label>
-          ユーザー名:
-          <input type="text" name="username" value={username} onChange={e=>setUsername(e.target.value)} />
-        </label><br />
-        <label>
-          パスワード:
-          <input type="password" name="password" value={password} onChange={e=>setPassword(e.target.value)} />
-        </label><br />
+        <table>
+          <tbody>
+            <tr>
+              <td>ユーザー名:</td>
+              <td><input type="text" name="username" value={username} onChange={e=>setUsername(e.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>パスワード:</td>
+              <td><input type="password" name="password" value={password} onChange={e=>setPassword(e.target.value)} /></td>
+            </tr>
+          </tbody>
+        </table>
         <input type="submit" value="ログイン" />
       </form>
     </>}

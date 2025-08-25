@@ -1,3 +1,5 @@
+require("./style.css");
+
 const React = require("react");
 const ReactDOM = require("react-dom/client");
 
