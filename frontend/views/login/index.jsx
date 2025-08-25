@@ -12,7 +12,7 @@ function App() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleLogin = React.useCallback(async e => {
+  const handleLogin = React.useCallback(e => {
     axios.post("/api/auth/login/", {
       username: username,
       password: password,
