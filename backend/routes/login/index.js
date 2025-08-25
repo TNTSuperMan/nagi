@@ -1,7 +1,7 @@
 const express = require("express");
 
-const password = require("./password");
-const totp = require("./totp");
+const password = require("./password.js");
+const totp = require("./totp.js");
 
 const app = express.Router();
 
