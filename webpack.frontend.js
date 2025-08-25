@@ -6,49 +6,49 @@ const views = fs.readdirSync("./frontend/views");
 
 const entry = {};
 views.forEach(view => {
-    entry[view] = "./frontend/views/" + view + "/index.jsx";
+  entry[view] = "./frontend/views/" + view + "/index.jsx";
 });
 
 module.exports = {
-    name: "frontend",
-    target: "web",
-    mode: process.env.NODE_ENV === "production" ? "production" : "development",
-    entry: entry,
-    output: {
-        path: __dirname + "/frontend/dist",
-        filename: "[name].js"
+  name: "frontend",
+  target: "web",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
+  entry: entry,
+  output: {
+    path: __dirname + "/frontend/dist",
+    filename: "[name].js",
+  },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, "./frontend/dist"),
     },
-    devServer: {
-        static: {
-            directory: path.resolve(__dirname, "./frontend/dist")
+    proxy: [
+      {
+        context: ["/api"],
+        target: "http://localhost:5103",
+        secure: false,
+      },
+    ],
+    port: 3000,
+    hot: true,
+    open: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
         },
-        proxy: [
-            {
-                context: ["/api"],
-                target: "http://localhost:5103",
-                secure: false
-            }
-        ],
-        port: 3000,
-        hot: true,
-        open: true
-    },
-    module: {
-        rules: [
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
-            }
-        ]
-    },
-    plugins: [
-        ...views.map(view => new HTMLWebpackPlugin({
-            template: "./frontend/template.html",
-            filename: view + ".html",
-            chunks: [view]
-        }))
-    ]
-}
+      },
+    ],
+  },
+  plugins: [
+    ...views.map(view => new HTMLWebpackPlugin({
+      template: "./frontend/template.html",
+      filename: view + ".html",
+      chunks: [view],
+    })),
+  ],
+};
