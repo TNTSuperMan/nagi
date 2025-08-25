@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const router = require("./routes/index.js");
+const logger = require("./logger.js");
 
 const app = express();
 
@@ -22,5 +23,5 @@ if(process.env.NODE_ENV === "production") {
 const port = parseInt(process.env.PORT) || 5103;
 
 app.listen(port, () => {
-  console.log("凪のバックエンドサーバーが http://localhost:" + port + " で開始しました");
+  logger.info("凪のバックエンドサーバーが http://localhost:" + port + " で開始しました");
 });

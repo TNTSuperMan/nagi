@@ -2,6 +2,7 @@ const express = require("express");
 const speakeasy = require("speakeasy");
 const pg = require("pg");
 const z = require("zod");
+const logger = require("../../logger.js");
 
 const limit = require("./limit.js");
 
@@ -35,7 +36,7 @@ app.post("/", limit, async (req, res, next) => {
     }
     req.session.regenerate((err) => {
       if(err){
-        console.error("セッションIDの再発行に失敗: ", err);
+        logger.error("セッションIDの再発行に失敗しました: ", err);
         res.status(500).json({ error: "内部エラーが発生しました" });
         return;
       }
