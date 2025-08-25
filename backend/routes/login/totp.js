@@ -3,6 +3,7 @@ const speakeasy = require("speakeasy");
 const pg = require("pg");
 const z = require("zod");
 const logger = require("../../logger.js");
+const consts = require("../../consts");
 
 const limit = require("./limit.js");
 
@@ -46,7 +47,9 @@ app.post("/", limit, async (req, res, next) => {
         res.status(500).json({ error: "内部エラーが発生しました" });
         return;
       }
+      req.session.expires = Date.now() + consts.SESSION_EXPIRES_MS;
       req.session.userId = body.username;
+      req.session.mode = "session";
       res.json({ message: "成功しました" });
     });
   }catch(err){
