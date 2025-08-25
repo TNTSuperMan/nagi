@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express.Router();
 
-const session = require("./login/index.js");
+const login = require("./login/index.js");
+const session = require("./session.js");
 
-app.use("/login", session);
+app.use("/login", login);
+app.use("/session", session);
 
 app.get("/hello", (req, res) => {
   res.send("Hello!");
