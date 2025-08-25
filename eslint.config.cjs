@@ -5,10 +5,10 @@ const config = require("eslint/config");
 
 module.exports = config.defineConfig([
   {
-    ignores: ["**/dist/**", "node_modules/**"]
+    ignores: ["**/dist/**", "node_modules/**"],
   },
   {
-    files: ["**/*.js"],
+    files: ["**/*.{js,cjs,jsx}"],
     rules: {
       "no-unused-vars": "error",
       "no-undef": "error",
@@ -19,13 +19,14 @@ module.exports = config.defineConfig([
       "semi": ["error", "always"],
       "object-curly-spacing": ["error", "always"],
       "comma-dangle": ["error", "always-multiline"],
-      "quotes": ["error", "double", { avoidEscape: true }]
-    }
+      "quotes": ["error", "double", { avoidEscape: true }],
+    },
   },
 
   { files: ["**/*.{js,cjs}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.node } },
   { files: ["**/*.js"], languageOptions: { sourceType: "commonjs" } },
   
-  { files: ["frontend/**/*.{js,cjs}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
-  { files: ["frontend/**/*.js"], languageOptions: { sourceType: "commonjs" }, ...pluginReact.configs.recommended },
+  { files: ["frontend/**/*.{js,cjs,jsx}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
+  { files: ["frontend/**/*.{js,jsx}"], languageOptions: { sourceType: "commonjs" } },
+  pluginReact.configs.flat.recommended,
 ]);
