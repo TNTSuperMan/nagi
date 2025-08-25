@@ -18,10 +18,10 @@ app.post("/", async (req, res, next) => {
 
         const result = await reader_client.query("SELECT totp_secret FROM users WHERE handle = $1", [body.username]);
         if(!result.rowCount){
-            return res.status(403).json({ error: "アクセス不許可" });
+            return res.status(403).json({ error: "ユーザー名かコードが異なります" });
         }
         if(!result.rows[0].totp_secret){
-            return res.status(403).json({ error: "アクセス不許可" });
+            return res.status(403).json({ error: "ユーザー名かコードが異なります" });
         }
         if(!speakeasy.totp.verify({
             secret: result.rows[0].totp_secret,
@@ -29,7 +29,7 @@ app.post("/", async (req, res, next) => {
             token: body.token,
             window: 1
         })){
-            return res.status(403).json({ error: "アクセス不許可" });
+            return res.status(403).json({ error: "ユーザー名かコードが異なります" });
         }
         req.session.regenerate((err) => {
             if(err){

@@ -18,10 +18,10 @@ app.post("/", async (req, res, next) => {
 
         const result = await reader_client.query("SELECT password_hash FROM users WHERE handle = $1", [body.username]);
         if(!result.rowCount){
-            return res.status(403).json({ error: "アクセス不許可" });
+            return res.status(403).json({ error: "ユーザー名かパスワードが異なります" });
         }
         if(!await bcrypt.compare(body.password, result.rows[0].password_hash)){
-            return res.status(403).json({ error: "アクセス不許可" });
+            return res.status(403).json({ error: "ユーザー名かパスワードが異なります" });
         }
         req.session.regenerate((err) => {
             if(err){
