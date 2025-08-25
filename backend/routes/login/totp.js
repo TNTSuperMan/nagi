@@ -3,6 +3,8 @@ const speakeasy = require("speakeasy");
 const pg = require("pg");
 const z = require("zod");
 
+const limit = require("./limit.js");
+
 const app = express.Router();
 
 const totpLoginSchema = z.object({
@@ -10,7 +12,7 @@ const totpLoginSchema = z.object({
     token: z.number()
 });
 
-app.post("/", async (req, res, next) => {
+app.post("/", limit, async (req, res, next) => {
     const reader_client = new pg.Client(process.env.POSTGRESQL_READER);
     await reader_client.connect();
     try{
