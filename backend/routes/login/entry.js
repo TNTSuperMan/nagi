@@ -20,7 +20,7 @@ app.post("/", limit, async (req, res, next) => {
   try{
     const body = passwordLoginSchema.parse(req.body);
 
-    const result = await reader_client.query("SELECT id password_hash, totp_secret FROM users WHERE handle = $1", [body.username]);
+    const result = await reader_client.query("SELECT id, password_hash, totp_secret FROM users WHERE handle = $1", [body.username]);
     if(!result.rowCount){
       return res.status(403).json({ error: "ユーザー名かパスワードが異なります" });
     }
