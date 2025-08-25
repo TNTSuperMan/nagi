@@ -9,17 +9,23 @@ const limit = require("./limit.js");
 const app = express.Router();
 
 const totpLoginSchema = z.object({
-  username: z.string().max(256),
   token: z.number(),
 });
 
 app.post("/", limit, async (req, res, next) => {
+  if(Date.now() > req.session.expires){
+    return res.status(403).json({ error: "チャレンジが無効です、再読み込みしてください" });
+  }
+  if(req.session.mode !== "challenge"){
+    return res.status(403).json({ error: "チャレンジが無効です、再読み込みしてください" });
+  }
+
   const reader_client = new pg.Client(process.env.POSTGRESQL_READER);
   await reader_client.connect();
   try{
     const body = totpLoginSchema.parse(req.body);
 
-    const result = await reader_client.query("SELECT totp_secret FROM users WHERE handle = $1", [body.username]);
+    const result = await reader_client.query("SELECT totp_secret FROM users WHERE id = $1", [req.session.userId]);
     if(!result.rowCount){
       return res.status(403).json({ error: "ユーザー名かコードが異なります" });
     }

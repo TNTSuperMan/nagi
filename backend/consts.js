@@ -1,0 +1,2 @@
+exports.SESSION_EXPIRES_MS = 1000 * 60 * 60 * 24;
+exports.CHALLENGE_EXPIRES_MS = 1000 * 60 * 3;
