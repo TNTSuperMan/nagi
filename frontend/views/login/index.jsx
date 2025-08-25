@@ -21,7 +21,11 @@ function App() {
         setErr("二段階認証はまだ未実装です");
       }
     }).catch(error => {
-      setErr(String(error));
+      if(error instanceof axios.AxiosError){
+        setErr(error.response.data.error);
+      }else{
+        setErr("内部エラーが発生しました");
+      }
     });
     e.preventDefault();
   }, [username, password]);
