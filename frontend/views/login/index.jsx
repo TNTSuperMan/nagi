@@ -18,7 +18,7 @@ function App() {
       password: password,
     }).then(response => {
       if(response.status === 200){
-        location.href = "/home";
+        location.href = "/home.html";
       }else{
         setErr("二段階認証はまだ未実装です");
       }
