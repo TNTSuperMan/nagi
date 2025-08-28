@@ -1,5 +1,5 @@
 const express = require("express");
-const pg = require("pg");
+const postgres = require("../../postgres.js");
 
 const app = express.Router();
 
@@ -16,11 +16,9 @@ app.post("/", async (req, res, next) => {
     return res.json(null);
   }
 
-  const reader_client = new pg.Client(process.env.POSTGRESQL_READER);
-  await reader_client.connect();
   try{
-    const result = await reader_client.query("SELECT id, handle, displayName FROM users WHERE id = $1", [req.session.userId]);
-    if(!result.rowCount){
+    const result = await postgres.reader_sql`SELECT id, handle, displayName FROM users WHERE id = ${req.session.userId}`;
+    if(!result.length){
       return req.session.destroy(err => {
         if(err){
           next(err);
@@ -29,16 +27,14 @@ app.post("/", async (req, res, next) => {
       });
     }else{
       res.json({
-        id: result.rows[0].id,
-        handle: result.rows[0].handle,
-        displayName: result.rows[0].displayName,
+        id: result[0].id,
+        handle: result[0].handle,
+        displayName: result[0].displayName,
         expires: new Date(req.session.expires).toISOString(),
       });
     }
   }catch(err){
     next(err);
-  }finally{
-    await reader_client.end();
   }
 });
 

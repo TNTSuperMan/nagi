@@ -1,7 +1,7 @@
 const express = require("express");
 const speakeasy = require("speakeasy");
-const pg = require("pg");
 const z = require("zod");
+const postgres = require("../../../postgres.js");
 const logger = require("../../../logger.js");
 const consts = require("../../../consts");
 
@@ -21,12 +21,10 @@ app.post("/", limit, async (req, res, next) => {
     return res.status(403).json({ error: "チャレンジが無効です、再読み込みしてください" });
   }
 
-  const reader_client = new pg.Client(process.env.POSTGRESQL_READER);
-  await reader_client.connect();
   try{
     const body = totpLoginSchema.parse(req.body);
 
-    const result = await reader_client.query("SELECT totp_secret FROM users WHERE id = $1", [req.session.userId]);
+    const result = await postgres.reader_sql`SELECT totp_secret FROM users WHERE id = ${req.session.userId}`;
     if(!result.rowCount){
       return res.status(403).json({ error: "ユーザー名かコードが異なります" });
     }
@@ -58,8 +56,6 @@ app.post("/", limit, async (req, res, next) => {
     }else{
       next(err);
     }
-  }finally{
-    await reader_client.end();
   }
 });
 
