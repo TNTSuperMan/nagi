@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const z = require("zod");
 const postgres = require("../../../postgres.js");
 const logger = require("../../../logger.js");
