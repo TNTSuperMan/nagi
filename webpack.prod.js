@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const frontend = require("./webpack.frontend.js");
 
 module.exports = [
@@ -20,5 +21,10 @@ module.exports = [
         },
       ],
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env.NODE_ENV": JSON.stringify("production"),
+      }),
+    ],
   },
 ];
