@@ -29,7 +29,7 @@ app.post("/", limit, async (req, res, next) => {
       if(err){
         logger.error("セッションIDの再発行に失敗しました: ", err);
         res.status(500).json({ error: "内部エラーが発生しました" });
-        resolve();
+        return resolve();
       }
       const auths = [];
       if(result[0].totp_secret){
