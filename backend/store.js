@@ -9,7 +9,7 @@ class PostgresStore extends session.Store {
   }
   async get(sid, callback) {
     try {
-      const res = this.reader`SELECT sess FROM sessions WHERE sid = ${sid} AND expires > NOW()`;
+      const res = await this.reader`SELECT sess FROM sessions WHERE sid = ${sid} AND expires > NOW()`;
       callback(null, res[0]?.sess || null);
     } catch (err) {
       callback(err);
