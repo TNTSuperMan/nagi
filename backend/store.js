@@ -42,7 +42,7 @@ class PostgresStore extends session.Store {
     try {
       const expires = new Date(sess.expires ??= Date.now() + this.ttl * 1000);
 
-      await this.writer`UPDATE sessions SET expire = ${expires} WHERE sid = ${sid}`;
+      await this.writer`UPDATE sessions SET expires = ${expires} WHERE sid = ${sid}`;
       callback(null);
     } catch (err) {
       callback(err);
