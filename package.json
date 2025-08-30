@@ -15,7 +15,9 @@
   "type": "commonjs",
   "main": "src/index.ts",
   "scripts": {
-    "build": "NODE_ENV=production webpack -c webpack.prod.js",
+    "build": "npm-run-all --serial build:frontend build:backend",
+    "build:frontend": "NODE_ENV=production webpack -c webpack.frontend.js",
+    "build:backend": "NODE_ENV=production webpack -c webpack.prod.js",
     "serve": "npm-run-all --parallel serve:frontend serve:backend",
     "serve:frontend": "webpack serve -c webpack.frontend.js",
     "serve:backend": "dotenv node backend",
