@@ -1,6 +1,5 @@
 const express = require("express");
 const session = require("express-session");
-const path = require("path");
 const router = require("./routes/index.js");
 const logger = require("./logger.js");
 const PostgresStore = require("./store.js");
@@ -25,7 +24,23 @@ app.use(session({
 app.use("/api", router);
 
 if(process.env.NODE_ENV === "production") {
-  app.use(express.static(path.resolve(__dirname, "../frontend/dist")));
+  const assets = require("../build/assets.json");
+  app.get("/", (_, res) => {
+    const asset = assets["index.html"];
+    if(!asset) {
+      res.status(404).send(assets["404"] || "404 Not Found");
+    } else {
+      res.send(asset);
+    }
+  });
+  app.get("/:name", (req, res) => {
+    const asset = assets[req.params.name];
+    if(!asset) {
+      res.status(404).send(assets["404"] || "404 Not Found");
+    } else {
+      res.send(asset);
+    }
+  });
 }
 
 const port = parseInt(process.env.PORT) || 5103;
