@@ -5,8 +5,6 @@ const postgres = require("../../../postgres.js");
 const logger = require("../../../logger.js");
 const consts = require("../../../consts.js");
 
-const limit = require("./limit.js");
-
 const app = express.Router();
 
 const passwordLoginSchema = z.object({
@@ -14,7 +12,7 @@ const passwordLoginSchema = z.object({
   password: z.string(),
 });
 
-app.post("/", limit, async (req, res, next) => {
+app.post("/", async (req, res, next) => {
   try{
     const body = passwordLoginSchema.parse(req.body);
 

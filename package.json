@@ -25,7 +25,6 @@
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
     "express": "^5.1.0",
-    "express-rate-limit": "^8.0.1",
     "express-session": "^1.18.2",
     "postgres": "^3.4.7",
     "react": "^19.1.1",

@@ -5,15 +5,13 @@ const postgres = require("../../../postgres.js");
 const logger = require("../../../logger.js");
 const consts = require("../../../consts");
 
-const limit = require("./limit.js");
-
 const app = express.Router();
 
 const totpLoginSchema = z.object({
   token: z.number(),
 });
 
-app.post("/", limit, async (req, res, next) => {
+app.post("/", async (req, res, next) => {
   if(Date.now() > req.session.expires){
     return res.status(403).json({ error: "チャレンジが無効です、再読み込みしてください" });
   }

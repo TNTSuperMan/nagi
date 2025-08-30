@@ -5,10 +5,12 @@ const router = require("./routes/index.js");
 const logger = require("./logger.js");
 const PostgresStore = require("./store.js");
 const postgres = require("./postgres.js");
+const queueMiddleware = require("./queue.js");
 
 const app = express();
 
 app.use(express.json());
+app.use(queueMiddleware);
 app.use(session({
   secret: process.env.KEY,
   resave: false,
