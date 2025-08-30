@@ -3,6 +3,8 @@ const session = require("express-session");
 const path = require("path");
 const router = require("./routes/index.js");
 const logger = require("./logger.js");
+const PostgresStore = require("./store.js");
+const postgres = require("./postgres.js");
 
 const app = express();
 
@@ -12,6 +14,10 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: { maxAge: 60000 },
+  store: new PostgresStore({
+    reader: postgres.reader_sql,
+    writer: postgres.writer_sql,
+  }),
 }));
 
 app.use("/api", router);

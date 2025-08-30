@@ -18,3 +18,9 @@ CREATE TABLE webauthn_credentials (
     name TEXT NOT NULL,
     credential JSONB
 );
+
+CREATE TABLE sessions (
+    sid TEXT PRIMARY KEY,
+    sess JSON NOT NULL,
+    expires TIMESTAMP NOT NULL
+);
