@@ -25,10 +25,10 @@ const session = {
           callback(null, null);
         }
       });
-    } else if(session.mode !== "session") {
+    } else if(req.session.mode !== "session") {
       callback(null, null);
     } else {
-      callback(null, session.userId);
+      callback(null, req.session.userId);
     }
   },
 
