@@ -19,7 +19,7 @@ app.post("/", function (req, res, next) {
       res.status(403).json({ error: "ユーザー名かパスワードが異なります" });
       break;
     case "success":
-      session.login(result.id, req.session, function (err) {
+      session.login(result.id, req, function (err) {
         if (err) {
           next(err);
         } else {
@@ -28,7 +28,7 @@ app.post("/", function (req, res, next) {
       });
       break;
     case "needs_2FA":
-      session.start_challenge(result.id, req.session, function (err) {
+      session.start_challenge(result.id, req, function (err) {
         if (err) {
           next(err);
         } else {

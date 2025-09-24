@@ -4,21 +4,21 @@ const SESSION_EXPIRES_MS = 1000 * 60 * 60 * 24;
 const CHALLENGE_EXPIRES_MS = 1000 * 60 * 3;
 
 const session = {
-  login(userId, session, callback) {
-    session.regenerate(function (err) {
+  login(userId, req, callback) {
+    req.session.regenerate(function (err) {
       if (err) {
         callback(err);
       } else {
-        session.expires = Date.now() + SESSION_EXPIRES_MS;
-        session.userId = userId;
-        session.mode = "session";
+        req.session.expires = Date.now() + SESSION_EXPIRES_MS;
+        req.session.userId = userId;
+        req.session.mode = "session";
         callback(null);
       }
     });
   },
-  validate(session, callback) {
-    if (session.expires < Date.now()) {
-      session.destroy(function (err) {
+  validate(req, callback) {
+    if (req.session.expires < Date.now()) {
+      req.session.destroy(function (err) {
         if (err) {
           callback(err, null);
         } else {
@@ -32,20 +32,20 @@ const session = {
     }
   },
 
-  start_challenge(userId, session, callback) {
-    session.regenerate(function (err) {
+  start_challenge(userId, req, callback) {
+    req.session.regenerate(function (err) {
       if (err) {
         callback(err);
       } else {
-        session.expires = Date.now() + CHALLENGE_EXPIRES_MS;
-        session.userId = userId;
-        session.mode = "challenge";
+        req.session.expires = Date.now() + CHALLENGE_EXPIRES_MS;
+        req.session.userId = userId;
+        req.session.mode = "challenge";
         callback(null);
       }
     });
   },
-  validate_challenge(session, callback) {
-    if (session.expires < Date.now()) {
+  validate_challenge(req, callback) {
+    if (req.session.expires < Date.now()) {
       callback.destroy(function (err) {
         if (err) {
           callback(err, null);
@@ -53,10 +53,10 @@ const session = {
           callback(null, null);
         }
       });
-    } else if(session.mode !== "challenge") {
+    } else if(req.session.mode !== "challenge") {
       callback(null, null);
     } else {
-      user.from_id(session.userId, function (user) {
+      user.from_id(req.session.userId, function (user) {
         if (!user) {
           callback(null, null);
         } else {

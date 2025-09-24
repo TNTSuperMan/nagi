@@ -12,7 +12,7 @@ const totpLoginSchema = z.object({
 app.post("/", (req, res, next) => {
   const body = totpLoginSchema.parse(req.body);
 
-  session.validate_challenge(req.session, function (err, user) {
+  session.validate_challenge(req, function (err, user) {
     if (err) {
       next(err);
     } else if (!user || !user.totp_secret) {
@@ -25,7 +25,7 @@ app.post("/", (req, res, next) => {
     })) {
       res.status(403).json({ error: "ユーザー名かコードが異なります" });
     } else {
-      session.login(user.id, req.session, function (err) {
+      session.login(user.id, req, function (err) {
         if (err) {
           next(err);
         } else {

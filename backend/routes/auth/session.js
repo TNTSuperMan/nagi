@@ -5,7 +5,7 @@ const user = require("../../models/user.js");
 const app = express.Router();
 
 app.post("/", async (req, res, next) => {
-  session.validate(req.session, function (err, id) {
+  session.validate(req, function (err, id) {
     if (err) {
       next(err);
     } else if(!id) {
