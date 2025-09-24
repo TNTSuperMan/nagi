@@ -2,6 +2,7 @@ require("./style.css");
 
 const React = require("react");
 const ReactDOM = require("react-dom/client");
+const axios = require("axios");
 
 document.title = "Home";
 
@@ -9,19 +10,13 @@ function App() {
   const [session, setSession] = React.useState();
 
   React.useEffect(() => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/api/auth/session", true);
-    xhr.onreadystatechange = () => {
-      if(xhr.readyState === 4) {
-        const body = JSON.parse(xhr.responseText);
-        if(body === null) {
-          location.href = "/login.html";
-        } else {
-          setSession(body);
-        }
+    axios.post("/api/auth/session").then(response => {
+      if(response.data === null) {
+        location.href = "/login.html";
+      } else {
+        setSession(response.data);
       }
-    };
-    xhr.send();
+    });
   }, []);
 
   if(!session) {
