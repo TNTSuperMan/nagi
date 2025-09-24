@@ -4,7 +4,7 @@ function queueMiddleware(_, _2, next) {
   queue.push(next);
 }
 
-setInterval(() => {
+setInterval(function () {
   queue.shift()?.();
 }, 1000);
 
