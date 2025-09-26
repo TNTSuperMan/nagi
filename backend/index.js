@@ -2,9 +2,9 @@ const express = require("express");
 const session = require("express-session");
 const router = require("./routes/index.js");
 const logger = require("./logger.js");
-const PostgresStore = require("./store.js");
 const postgres = require("./postgres.js");
-const queueMiddleware = require("./queue.js");
+const PostgresStore = require("./middlewares/store.js");
+const queueMiddleware = require("./middlewares/queue.js");
 
 const app = express();
 
