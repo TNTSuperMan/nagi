@@ -9,7 +9,7 @@ const totpLoginSchema = z.object({
   token: z.number(),
 });
 
-app.post("/", (req, res, next) => {
+app.post("/", function (req, res, next) {
   const body = totpLoginSchema.parse(req.body);
 
   session.validate_challenge(req, function (err, user) {

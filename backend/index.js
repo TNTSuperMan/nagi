@@ -45,6 +45,6 @@ if(process.env.NODE_ENV === "production") {
 
 const port = parseInt(process.env.PORT) || 5103;
 
-app.listen(port, () => {
+app.listen(port, function () {
   logger.info("凪のバックエンドサーバーが http://localhost:" + port + " で開始しました");
 });

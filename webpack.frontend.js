@@ -5,7 +5,7 @@ const fs = require("fs");
 const views = fs.readdirSync("./frontend/views");
 
 const entry = {};
-views.forEach(view => {
+views.forEach(function (view) {
   entry[view] = "./frontend/views/" + view + "/index.jsx";
 });
 
@@ -52,10 +52,12 @@ module.exports = {
     extensions: [".js", ".jsx"],
   },
   plugins: [
-    ...views.map(view => new HTMLWebpackPlugin({
-      template: "./frontend/template.html",
-      filename: view + ".html",
-      chunks: [view],
-    })),
+    ...views.map(function (view) {
+      return new HTMLWebpackPlugin({
+        template: "./frontend/template.html",
+        filename: view + ".html",
+        chunks: [view],
+      });
+    }),
   ],
 };

@@ -12,17 +12,17 @@ function App() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleLogin = React.useCallback(e => {
+  const handleLogin = React.useCallback(function (e) {
     axios.post("/api/auth/login/", {
       username: username,
       password: password,
-    }).then(response => {
+    }).then(function (response) {
       if(response.status === 200){
         location.href = "/home.html";
       }else{
         setErr("二段階認証はまだ未実装です");
       }
-    }).catch(error => {
+    }).catch(function (error) {
       if(error instanceof axios.AxiosError){
         setErr(error.response.data.error);
       }else{
@@ -41,11 +41,28 @@ function App() {
           <tbody>
             <tr>
               <td>ユーザー名:</td>
-              <td><input type="text" name="username" value={username} onChange={e=>setUsername(e.target.value)} /></td>
+              <td>
+                <input
+                  type="text"
+                  name="username"
+                  value={username}
+                  onChange={function (ev) {
+                    setUsername(ev.target.value);
+                  }}
+                />
+              </td>
             </tr>
             <tr>
               <td>パスワード:</td>
-              <td><input type="password" name="password" value={password} onChange={e=>setPassword(e.target.value)} /></td>
+              <td>
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={function (ev) {
+                    setPassword(ev.target.value);
+                  }} />
+              </td>
             </tr>
           </tbody>
         </table>

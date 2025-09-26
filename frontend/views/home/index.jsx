@@ -9,8 +9,8 @@ document.title = "Home";
 function App() {
   const [session, setSession] = React.useState();
 
-  React.useEffect(() => {
-    axios.post("/api/auth/session").then(response => {
+  React.useEffect(function () {
+    axios.post("/api/auth/session").then(function (response) {
       if(response.data === null) {
         location.href = "/login.html";
       } else {
